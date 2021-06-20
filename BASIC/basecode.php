@@ -8,13 +8,21 @@
     <title> A Simple PHP File embedded within a HTML</title>
     <link rel="icon" href="./favicon.ico">
 </head>
+<style>
+    body {
+        font-family: 'Courier New', Courier, monospace;
+        max-width: 500px;
+        margin: auto;
+
+    }
+</style>
 
 <body>
     <!-- PHP delimiter -->
-    <h3 style="font-family: 'Courier New', Courier, monospace;"> <?php
-                                                                    // Display greeting message
-                                                                    echo "Hello, Ajassem";
-                                                                    ?> </h3>
+    <h3 style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"> <?php
+                                                                                                                        // Display greeting message
+                                                                                                                        echo "Hello, Ajassem";
+                                                                                                                        ?> </h3>
 
 
     <?php $color = "blue";
@@ -120,13 +128,52 @@
     echo '<hr>';
     ?>
 
+    <?php
+
+    class greeting
+    {
+        //properties
+        public $str = "Hey Ajaasem";
+
+        //methods
+        function show_greeting()
+        {
+            return $this->str;
+        }
+    }
+
+    //create Obj from class
+    $message = new greeting;
+    var_dump($message);
+    echo "<hr>";
+    ?>
+
+    <?php
+
+    $n = null;
+    var_dump($n);
+    echo "<br>";
+    $b = "Hello World!";
+    $b = NULL;
+    var_dump($b);
+    echo "<hr>";
+
+    ?>
 
 
+    <?php
 
+    # open a file for reading
+    $handle = fopen("note.txt", "r");
+    var_dump($handle);
+    echo "<br>";
 
+    #connect to MySQL DB server with default setting
+    $linkSql = mysqli_connect("localhost", "root", "");
+    var_dump($linkSql);
+    echo "<hr>";
 
-
-
+    ?>
 
 </body>
 
