@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Advanced PHP - Upload </title>
+    <link rel="icon" href="./../favicon.ico">
+</head>
+<style>
+    body {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: x-large;
+        max-width: 500px;
+        justify-content: center;
+        text-align: center;
+        margin: auto;
+        background-color: #f5f5f5;
+        color: #2F4F4F;
+    }
+</style>
+
+<body>
+    <!-- Uploading Files on remote server using a Simple HTML form and PHP. -->
+    <form action="upload-manager.php" method="POST" enctype="multipart/form-data">
+        <h3>Upload File | McCdama</h3>
+        <label for="fileSelect">Filename:</label>
+        <input type="file" name="photo" id="fileSelect">
+        <input type="submit" name="submit" value="Upload">
+        <p><strong>Note:</strong> Only .jpg, .jpeg, .gif, .png formats allowed to a max size of 5 MB.</p>
+
+    </form>
+
+</body>
+
+</html>
