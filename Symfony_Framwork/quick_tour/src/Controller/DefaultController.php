@@ -2,37 +2,25 @@
 // src/Controller/DefaultController.php
 namespace App\Controller;
 
-//use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use App\GreetingGenerator;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
     /**
-    * @Route("/hello/{name}")
-    */
-    public function index($name)
-    {
-        //return new Response("Hello $name!");
-        return $this->render('default/index.html.twig', ['name'=>$name]);
-    }
-
-    /**
-     * @Route("/simple")
+     * @Route("/hello/{name}")
      */
-    /*public function simple()
+    public function index($name, LoggerInterface $logger, GreetingGenerator $generator)
     {
-        return new Response('Easy and Simple');
-    }*/
-    /**
-+      * @Route("/lucky/number")
-+      */
-     /*public function number(): Response
-    {
-        $number = random_int(0, 100);
+        $greeting = $generator->getRandomGreeting();
 
-        return new Response(
-            '<html><body>Lucky number: '.$number.'</body></html>'
-        );
-    }*/
+        $logger->info("Saying $greeting to $name!");
+        return $this->render('default/index.html.twig', [
+            'name' => $name,
+            'logger' => $logger,
+            'greeting' => $greeting
+        ]);
+    }
 }
