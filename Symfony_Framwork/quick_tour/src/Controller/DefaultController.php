@@ -16,7 +16,7 @@ class DefaultController extends AbstractController
     {
         $greeting = $generator->getRandomGreeting();
 
-        $logger->info("Saying $greeting to $name!");
+        $logger->info("Saying $greeting to $name!"); // see dev.log file
         return $this->render('default/index.html.twig', [
             'name' => $name,
             'logger' => $logger,

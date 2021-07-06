@@ -1,5 +1,11 @@
 {# templates/default/index.html.twig #}
 {% extends 'base.html.twig' %}
 {% block body %}
-<h1> {{ greeting }} {{ name }}</h1>
+{# <h1> {{ greeting }} {{ name }}</h1>  #}
+
+{# templates/default/index.html.twig #}
+{# Will print something like "Hey Symfony!" #}
+
+<h1>{{ name|greet }}</h1>
+
 {% endblock %}
