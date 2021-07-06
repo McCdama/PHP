@@ -40,4 +40,24 @@ class ProductController extends AbstractController
 
         return new Response('saved new Product with id' . $product->getId());
     }
+
+    /**
+     * @Route("/product/{id}", name="product_show")
+     */
+    public function show(int $id): Response
+
+    {
+        $product = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->find($id);
+
+        if (!$product) {
+            throw $this->createNotFoundException(
+                'No Product found for id' . $id
+            );
+        }
+
+
+        return new Response('checkout this great Product: ' . $product->getName());
+    }
 }
