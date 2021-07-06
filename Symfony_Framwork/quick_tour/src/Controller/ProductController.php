@@ -2,25 +2,26 @@
 
 namespace App\Controller;
 
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Product;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ProductController extends AbstractController
 {
     /**
      * @Route("/product", name="create_product")
      */
-    public function createProduct(): Response
+    public function createProduct(ValidatorInterface $vali): Response
     {
         //fetch the entity manager via $this.->getManager();
         $entityManager = $this->getDoctrine()->getManager();
 
         $product = new Product();
-        $product->setName('Keyboard');
-        $product->setPrice(2000);
+        $product->setName(false);
+        $product->setPrice('2000');
         $product->setDescription('Desc');
 
         // tell Doctrine you want to save the Product.
@@ -30,7 +31,13 @@ class ProductController extends AbstractController
 
         $entityManager->flush();
 
+        $err = $vali->validate($product);
+        if (count($err) > 0) {
+            # code...
+            return new Response((string)$err, 400);
+        }
 
-        return new Response ('saved new Product with id' .$product->getId()) ;
+
+        return new Response('saved new Product with id' . $product->getId());
     }
 }
