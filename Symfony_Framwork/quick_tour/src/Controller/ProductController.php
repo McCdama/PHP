@@ -47,6 +47,28 @@ class ProductController extends AbstractController
      */
     public function show(Product $product): Response
     {
-        return $this->render('product/show.html.twig', ['product' => $product->getDescription()]);
+        return $this->render('product/show.html.twig', ['product' => $product->getName()]);
+    }
+
+
+
+    /**
+     * @Route("/product/edit/{id}")
+     */
+    public function update(int $id): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        //1- fetching the object from Doctrine;
+        $product = $entityManager->getRepository(Product::class)->find($id);
+
+        if (!$product) {
+            throw $this->createNotFoundException('No Product found for id' . $id);
+        }
+        //2- modifying the object
+        $product->setName('New Product Name');
+        //3- calling flush() on the entity manager
+        $entityManager->flush();
+
+        return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
     }
 }
