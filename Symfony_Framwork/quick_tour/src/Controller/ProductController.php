@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Product;
+use App\Repository\ProductRepository;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ProductController extends AbstractController
@@ -44,22 +45,33 @@ class ProductController extends AbstractController
     /**
      * @Route("/product/{id}", name="product_show")
      */
-    public function show(int $id): Response
+    
+    /* public function show(int $id): Response
+*
+*   {
+*      $product = $this->getDoctrine()
+*         ->getRepository(Product::class)
+*        ->find($id);
+*
+*       if (!$product) {
+*           return $this->render('product/notFound.html.twig',['product'=>$product]);
+*     
+*        //    throw $this->createNotFoundException(
+*          // 'No Product found for id' . $id
+*       //); 
+*           }
+*
+*       return $this->render('product/show.html.twig',['product'=>$product]);
+*      //return new Response('checkout this great Product: ' . $product->getName());
+    } */
 
+
+    /**
+     * @Route("/product/{id}", name="product_show")
+     */
+    public function show(int $id, ProductRepository $productRepository): Response
     {
-        $product = $this->getDoctrine()
-            ->getRepository(Product::class)
-            ->find($id);
-
-        if (!$product) {
-            return $this->render('product/notFound.html.twig',['product'=>$product]);
-        
-            /*     throw $this->createNotFoundException(
-                'No Product found for id' . $id
-            ); */
-        }
-
+        $product = $productRepository->find($id);
         return $this->render('product/show.html.twig',['product'=>$product]);
-        //return new Response('checkout this great Product: ' . $product->getName());
     }
 }
