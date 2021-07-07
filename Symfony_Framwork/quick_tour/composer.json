@@ -82,7 +82,7 @@
         }
     },
     "require-dev": {
-        "barryvdh/laravel-ide-helper": "^2.8",
+        "barryvdh/laravel-ide-helper": "^2.10",
         "symfony/maker-bundle": "^1.33"
     }
 }

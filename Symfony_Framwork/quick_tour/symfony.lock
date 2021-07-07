@@ -129,6 +129,9 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "illuminate/collections": {
+        "version": "v8.49.2"
+    },
     "illuminate/console": {
         "version": "v7.30.4"
     },
@@ -137,6 +140,9 @@
     },
     "illuminate/filesystem": {
         "version": "v7.30.4"
+    },
+    "illuminate/macroable": {
+        "version": "v8.49.2"
     },
     "illuminate/support": {
         "version": "v7.30.4"
