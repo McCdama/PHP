@@ -38,60 +38,15 @@ class ProductController extends AbstractController
             return new Response((string)$err, 400);
         }
 
-        
+
         return new Response('saved new Product with id' . $product->getId());
     }
 
-  
-    
-    /* public function show(int $id): Response
-*
-*   {
-*      $product = $this->getDoctrine()
-*         ->getRepository(Product::class)
-*        ->find($id);
-*
-*       if (!$product) {
-*           return $this->render('product/notFound.html.twig',['product'=>$product]);
-*     
-*        //    throw $this->createNotFoundException(
-*          // 'No Product found for id' . $id
-*       //); 
-*           }
-*
-*       return $this->render('product/show.html.twig',['product'=>$product]);
-*      //return new Response('checkout this great Product: ' . $product->getName());
-    } */
-
-    
     /**
      * @Route("/product/{id}", name="product_show")
      */
-    public function show(int $id, ProductRepository $productRepository ): Response
+    public function show(Product $product): Response
     {
-        // repository Object:
-        $repository = $this->getDoctrine()->getRepository(Product::class);
-
-        // look for a single Product by its primary key (usually "id")
-        //$product = $repository->find($id);
-        
-        // look for a single Product by name
-        //$product = $repository->findOneBy(['name' => 'Keyboard']);
-        // or find by name and price
-       /*  $product = $repository->findOneBy([
-            'name' => 'Keyboard',
-            'price' => 1999,
-        ]); */
-        
-        // look for multiple Product objects matching the name, ordered by price
-        /* $products = $repository->findBy(
-            ['name' => 'Keyboard'],
-            ['price' => 'ASC']
-        ); */
-        
-        // look for *all* Product objects
-        $products = $repository->findAll();
-
-        return $this->render('product/show.html.twig',['product'=>$products]);
+        return $this->render('product/show.html.twig', ['product' => $product->getDescription()]);
     }
 }
