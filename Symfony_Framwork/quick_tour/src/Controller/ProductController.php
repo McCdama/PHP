@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Product;
 use App\Repository\ProductRepository;
+use PhpParser\Node\Stmt\Echo_;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ProductController extends AbstractController
@@ -70,5 +71,30 @@ class ProductController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+    }
+
+
+
+    /**
+     * @Route("/product/remove/{id}")
+     */
+    public function remove(int $id): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        //1- fetching the object from Doctrine;
+        $product = $entityManager->getRepository(Product::class)->find($id);
+
+        if (!$product) {
+            throw $this->createNotFoundException('Product deleted on the ID: ' . $id);
+        }
+        //2- modifying the object
+        $entityManager->remove($product); // requires here a call to the remove() method of the entity manager:
+        //3- calling flush() on the entity manager
+        $beforeDelete = $product->getId();
+        //echo $beforeDelete;
+        $entityManager->flush();
+
+        return new Response('Deleted Product with Id: ' . $beforeDelete);
+        //return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
     }
 }
