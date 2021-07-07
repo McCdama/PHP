@@ -9,8 +9,16 @@
 </style>
 
 <div class="example-wrapper">
-<h1>Producte ID:  {{ product.id }} </h1>
- <h1>Producte Name:  {{ product.name }} </h1>
+
+<h1>Members</h1>
+<ul>
+    {% for pr in product %}
+        <li>{{ pr.id|e }}</li>
+    {% endfor %}
+</ul>
+
+
+
 </div>
 {% endblock %}
 
