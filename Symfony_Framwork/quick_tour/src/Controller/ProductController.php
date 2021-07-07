@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Product;
+use App\Service\MessageGenerator;
 
 class ProductController extends AbstractController
 {
@@ -24,6 +25,15 @@ class ProductController extends AbstractController
         return $this->render('product/show.html.twig', ['product' => $products]);
     }
 
+    /**
+     * @Route("/product/message")
+     */
+    public function message(MessageGenerator $messageGenerator): Response
+    {
+        $message = $messageGenerator->getHappyMessage();
+        $this->addFlash('success', $message);
+        return $this->render('product/show.html.twig', ['message' => $message]);
+    }
 
     /**
      * @Route("/product", name="create_product")
