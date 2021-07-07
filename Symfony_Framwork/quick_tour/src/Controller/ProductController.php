@@ -37,7 +37,7 @@ class ProductController extends AbstractController
             return new Response((string)$err, 400);
         }
 
-
+        
         return new Response('saved new Product with id' . $product->getId());
     }
 
@@ -52,12 +52,14 @@ class ProductController extends AbstractController
             ->find($id);
 
         if (!$product) {
-            throw $this->createNotFoundException(
+            return $this->render('product/notFound.html.twig',['product'=>$product]);
+        
+            /*     throw $this->createNotFoundException(
                 'No Product found for id' . $id
-            );
+            ); */
         }
 
-
-        return new Response('checkout this great Product: ' . $product->getName());
+        return $this->render('product/show.html.twig',['product'=>$product]);
+        //return new Response('checkout this great Product: ' . $product->getName());
     }
 }
