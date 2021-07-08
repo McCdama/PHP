@@ -18,11 +18,11 @@ class ProductController extends AbstractController
      */
     public function viewAbove()
     {
-        $minPrice = 50;
+        $minPrice = 2000;
         $products = $this->getDoctrine()
             ->getRepository(Product::class)
-            ->findAllGreaterThanPrice($minPrice);
-        return $this->render('product/show.html.twig', ['product' => $products]);
+            ->findAllGreaterThanPrice($minPrice); 
+        return $this->render('product/show.html.twig', ['products' => $products]);
     }
 
     /**

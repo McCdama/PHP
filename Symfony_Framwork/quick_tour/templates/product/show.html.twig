@@ -11,8 +11,14 @@
 <div class="example-wrapper">
 
 
-<h1>Message</h1>
-{{ message }}
+<h1>Products with Query Builder</h1>
+<ul>
+    {% for product in products %}
+        <li>{{ product.price|e }}</li>
+    {% endfor %}
+</ul>
+
+
 </div>
 {% endblock %}
 

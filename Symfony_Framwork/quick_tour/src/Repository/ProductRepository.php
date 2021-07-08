@@ -18,10 +18,41 @@ class ProductRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Product::class);
     }
-    /**
-     * @return Product[]
-     */
-    public function FindAllGreaterThanPrice(int $price): array
+
+
+    public function FindAllGreaterThanPrice(int $price/* , bool $includeUnavailableProducts=false */): array
+    {
+        $qb = $this->createQueryBuilder('p')
+                ->where('p.price > :price')
+                ->setParameter('price', $price)
+                ->orderBy('p.price', 'ASC');
+                
+        /* if (!$includeUnavailableProducts) {
+            $qb->andWhere('p.available =TRUE');
+        } */
+
+        $query= $qb->getQuery();
+
+        return $query->execute();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ///**
+    // * @return Product[]
+    // */
+    /* public function FindAllGreaterThanPrice(int $price): array
     {
         $entityManager = $this->getEntityManager();
 
@@ -33,7 +64,7 @@ class ProductRepository extends ServiceEntityRepository
         )->setParameter('price', $price);
 
         return $query->getResult();
-    }
+    } */
 
     public function findOneBySomeField($value): ?Product
     {
