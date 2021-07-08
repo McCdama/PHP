@@ -12,6 +12,11 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20210708091118 extends AbstractMigration
 {
+
+    public function getDescription(): string
+    {
+        return 'Standard Version for the import';
+    }
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
