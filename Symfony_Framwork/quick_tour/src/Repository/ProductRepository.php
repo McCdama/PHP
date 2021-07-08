@@ -12,21 +12,36 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Product[]    findAll()
  * @method Product[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+
 class ProductRepository extends ServiceEntityRepository
 {
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Product::class);
     }
 
+    public function findOneByIdJoinedToCategory(int $productId): ?Product
+    {
 
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            '
+            SELECT p, c
+            FROM APP\Entity\Product p
+            INNER JOIN p.category c
+            WHERE p.id > :id
+            '
+        )->setParameter('id', $productId);
+        return $query->getOneOrNullResult();
+    }
     public function FindAllGreaterThanPrice(int $price/* , bool $includeUnavailableProducts=false */): array
     {
         /* $qb = $this->createQueryBuilder('p')
                 ->where('p.price > :price')
                 ->setParameter('price', $price)
                 ->orderBy('p.price', 'ASC'); */
-                
+
         /* if (!$includeUnavailableProducts) {
             $qb->andWhere('p.available =TRUE');
         } */
@@ -44,26 +59,11 @@ class ProductRepository extends ServiceEntityRepository
         ';
         $stmt = $conn->prepare($sql);
         /* so executing the statement and then simply looping over it is no longer possible --> DEPRECATED! */
-        $stmt->execute(['price'=>$price]);
-        
+        $stmt->execute(['price' => $price]);
+
         /* With SQL, we will get back raw data, not objects! */
         return $stmt->fetchAssociative();
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     ///**
     // * @return Product[]
     // */

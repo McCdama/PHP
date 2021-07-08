@@ -51,11 +51,23 @@ class ProductController extends AbstractController
         $product = $this->getDoctrine()
             ->getRepository(Product::class)
             ->find($id);
-
-
-
         $categoryName = $product->getCategory()->getName();
         return $this->render('product/showIt.html.twig', ['categoryName' => $categoryName]);
+    }
+
+
+    /**
+     * @Route("/product/showJoin/{id}")
+     */
+    public function showJoin(int $id): Response
+    {
+        $product = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->findOneByIdJoinedToCategory($id);
+
+        //  $category = $product->getCategory(); //is useless if we don't need this variable $category. 
+        // var_dump($category);
+        return $this->render('product/showIt.html.twig', ['product' => $product]);
     }
 
     /**
