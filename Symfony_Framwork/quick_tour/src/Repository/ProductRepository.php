@@ -22,18 +22,33 @@ class ProductRepository extends ServiceEntityRepository
 
     public function FindAllGreaterThanPrice(int $price/* , bool $includeUnavailableProducts=false */): array
     {
-        $qb = $this->createQueryBuilder('p')
+        /* $qb = $this->createQueryBuilder('p')
                 ->where('p.price > :price')
                 ->setParameter('price', $price)
-                ->orderBy('p.price', 'ASC');
+                ->orderBy('p.price', 'ASC'); */
                 
         /* if (!$includeUnavailableProducts) {
             $qb->andWhere('p.available =TRUE');
         } */
 
-        $query= $qb->getQuery();
+        /* $query= $qb->getQuery();
 
-        return $query->execute();
+        return $query->execute(); */
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT * FROM product p
+        WHERE p.price > :price
+        ORDER BY p.price ASC
+        ';
+        $stmt = $conn->prepare($sql);
+        /* so executing the statement and then simply looping over it is no longer possible --> DEPRECATED! */
+        $stmt->execute(['price'=>$price]);
+        
+        /* With SQL, we will get back raw data, not objects! */
+        return $stmt->fetchAssociative();
+
     }
 
 
