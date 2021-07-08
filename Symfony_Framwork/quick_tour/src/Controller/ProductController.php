@@ -9,9 +9,41 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Product;
 use App\Service\MessageGenerator;
+use App\Entity\Category;
 
 class ProductController extends AbstractController
 {
+
+    /**
+     * @Route("/product/enti", name="product_enti")
+     */
+    public function index(): Response
+    {
+        $category = new Category();
+        $category->setName('Computer Peripherals');
+
+        $product = new Product();
+        $product->setName('Keyboard');
+        $product->setPrice(19.99);
+        $product->setDescription('Ergonomic and stylish!');
+
+        // relates this product to the category
+        /* $product->setCategory($category); */
+        $product->setCategory($category);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($category);
+        $entityManager->persist($product);
+        $entityManager->flush();
+
+        return new Response(
+            'Saved new product with id: '.$product->getId()
+            .' and new category with id: '.$category->getId()
+        );
+    }
+
+
+
 
     /**
      * @Route("/product/view")
