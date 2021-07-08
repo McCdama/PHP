@@ -20,12 +20,12 @@ class ProductController extends AbstractController
     public function index(): Response
     {
         $category = new Category();
-        $category->setName('Computer Peripherals');
+        $category->setName('Computer Support');
 
         $product = new Product();
-        $product->setName('Keyboard');
+        $product->setName('Headset');
         $product->setPrice(19.99);
-        $product->setDescription('Ergonomic and stylish!');
+        $product->setDescription('Brand New One!');
 
         // relates this product to the category
         /* $product->setCategory($category); */
@@ -37,13 +37,26 @@ class ProductController extends AbstractController
         $entityManager->flush();
 
         return new Response(
-            'Saved new product with id: '.$product->getId()
-            .' and new category with id: '.$category->getId()
+            'Saved new product with id: ' . $product->getId()
+                . ' and new category with id: ' . $category->getId()
         );
     }
 
 
+    /**
+     * @Route("/product/showIt/{id}")
+     */
+    public function showIt(int $id): Response
+    {
+        $product = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->find($id);
 
+
+
+        $categoryName = $product->getCategory()->getName();
+        return $this->render('product/showIt.html.twig', ['categoryName' => $categoryName]);
+    }
 
     /**
      * @Route("/product/view")
@@ -53,7 +66,7 @@ class ProductController extends AbstractController
         $minPrice = 2000;
         $products = $this->getDoctrine()
             ->getRepository(Product::class)
-            ->findAllGreaterThanPrice($minPrice); 
+            ->findAllGreaterThanPrice($minPrice);
         return $this->render('product/show.html.twig', ['products' => $products]);
     }
 
