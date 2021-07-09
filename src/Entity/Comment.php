@@ -5,8 +5,10 @@ namespace App\Entity;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+// see:https://www.doctrine-project.org/projects/doctrine-orm/en/2.9/reference/annotations-reference.html#annref_haslifecyclecallbacks
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Comment
 {
@@ -47,6 +49,16 @@ class Comment
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $photoFilename;
+
+
+    //triggered when the object is stored in the database for the very first time.
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->createdAt = new \DateTime;
+    }
 
     public function __toString(): string
     {
