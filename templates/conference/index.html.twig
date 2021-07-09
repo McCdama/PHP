@@ -8,5 +8,21 @@
 
 {% for conference in conferences %}
 <h4> {{ conference }} </h4>
+        
+        {# Hard coded! #}
+        {# <p>
+            <a href="/conference/{{ conference.id }}">View</a>
+        </p> #}
+
+
+        {# The path() function generates the path to a page using its route name.
+        The values of the route parameters are passed as a Twig map. #}
+
+    <p>
+    
+    <a href="{{ path('conference', { id:conference.id }) }}"> View </a>
+    
+    </p>
+
 {% endfor %}
 {% endblock %}
