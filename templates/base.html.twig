@@ -17,15 +17,21 @@
 
 <header>
          <h1><a href="{{ path('homepage') }}">Guestbook</a></h1>
+         {% if conferences|length>0 %}
+             
            <ul>
            {% for conference in conferences %}
 <li><a href="{{ path('conference', { id: conference.id }) }}">{{ conference }}</a></li>
            {% endfor %}
             </ul>
             <hr />
+
+{% else %} aha
+
+
+         {% endif %}
 </header>
 
-
-        {% block body %}{% endblock %}
+        
     </body>
 </html>
