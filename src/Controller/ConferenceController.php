@@ -38,13 +38,14 @@ class ConferenceController extends AbstractController
     // To manage the pagination in the template, pass the Doctrine Paginator instead of the Doctrine Collection to Twig:
 
 
-    public function show(Request $request, Conference $conference, CommentRepository $commentRepository): Response
+    public function show(Request $request, Conference $conference, CommentRepository $commentRepository, ConferenceRepository $conferenceRepository): Response
     {
         $offset = max(0, $request->query->getInt('offset', 0));
         $paginator = $commentRepository->getCommentPaginator($conference, $offset);
 
         return new Response($this->twig->render('conference/show.html.twig', [
             'conference' => $conference,
+            'conferences' => $conferenceRepository->findAll(),
             'comments' => $commentRepository->findBy(['conference' => $conference], ['createdAt' => 'DESC']),
             'comments' => $paginator,
             'previous' => $offset - CommentRepository::PAGINATOR_PER_PAGE,
