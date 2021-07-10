@@ -1,1 +1,14 @@
+
 Symfony_Framwork/quick_tour/.env
+
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+>>>>>>> 627975238ed53fa0c40d828f7972940c7e7d1c64
