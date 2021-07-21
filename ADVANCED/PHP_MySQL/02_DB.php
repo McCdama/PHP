@@ -36,18 +36,36 @@
     try {
         $sql = "CREATE DATABASE if not exists demo_DB";
         $sql_use = "USE demo_DB";
-        $sql_create = "CREATE TABLE persons(
+        $sql_create = "CREATE TABLE if not exists persons(
             id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
             first_name VARCHAR(30) NOT NULL,
             last_name VARCHAR(30) NOT NULL,
             email VARCHAR(70) NOT NULL UNIQUE
         )";
+        # Added IGNORE --> Avoiding Inserting Duplicate Records
+        $sql_insert = "INSERT IGNORE INTO persons (first_name, last_name, email) 
+                        VALUES ('MOHED', 'ALRAHBI', 'MCCDAMA@GMAIL.COM')";
+
+        $sql_mul_rows = "INSERT INTO persons (first_name, last_name, email) 
+                        VALUES('John', 'Rambo', 'johnrambo@mail.com'),
+                                ('Clark', 'Kent', 'clarkkent@mail.com'),
+                                ('John', 'Carter', 'johncarter@mail.com'),
+                                ('Harry', 'Potter', 'harrypotter@mail.com')";
+
         $pdo->exec($sql);
         $pdo->exec($sql_use);
         $pdo->exec($sql_create);
+        $pdo->exec($sql_insert);
+        $pdo->exec($sql_mul_rows);
+
         echo "DB created successfully";
         echo "<br>";
         echo "TABLE created successfully";
+        echo "<br>";
+        echo "VALUES inserted successfully";
+        echo "<br>";
+        echo "Multiple rows inserted successfully";
+        echo "<br>";
     } catch (PDOException $e) {
         die("ERROR: " . $e->getMessage());
     }
