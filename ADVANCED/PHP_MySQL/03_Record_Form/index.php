@@ -22,7 +22,8 @@
 </style>
 
 <body>
-    <form action="insert.php" method="POST">
+    <!--   <form action="insert.php" method="POST"> -->
+    <form action="./../04_Prepared_Statement.php" method="POST">
         <p>
             <label for="firstname">First Name: </label>
             <input type="text" name="first_name" id="firstname">
