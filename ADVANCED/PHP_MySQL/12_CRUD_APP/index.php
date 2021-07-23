@@ -69,20 +69,28 @@
                                 echo "<td>" . $row['salary'] . "</td>";
 
                                 echo "<td>";
+                                # View
+                                echo '<a href="read.php?id=' . $row['id'] . '" class="mr-3" title="View Record" data-toogle="tooltip"><span class="fa fa-eye"></span></a>';
 
+                                # Update
+                                echo '<a href="read.php?id=' . $row['id'] . '" class="mr-3" title="Update Record" data-toogle="tooltip"><span class="fa fa-pencil"></span></a>';
 
-
+                                # Delete
+                                echo '<a href="read.php?id=' . $row['id'] . '" class="mr-3" title="Delete Record" data-toogle="tooltip"><span class="fa fa-trash"></span></a>';
 
                                 echo "</td>";
                                 echo "</tr>";
                             }
                             echo "</tbody>";
                             echo "</table>";
+                            unset($result);
+                        } else {
+                            echo '<div class="alert alert-danger"><em>No Records were found.</em></div>';
                         }
+                    } else {
+                        echo "Something went wrong.";
                     }
-
-
-
+                    unset($pdo);
                     ?>
                 </div>
             </div>
