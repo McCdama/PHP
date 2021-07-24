@@ -1,0 +1,47 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.search-box {
+    width: 300px;
+    position: relative;
+    display: inline-block;
+    font-size: 30px;
+}
+
+.search-box input[type="text"] {
+    height: 32px;
+    padding: 5px 10px;
+    border: 1px solid cadetblue;
+    font-size: 20px;
+
+}
+
+.result {
+
+    position: absolute;
+    z-index: 999;
+    top: 100%;
+    left: 0;
+}
+
+.search-box input[type="text"],
+.result {
+
+    /*   width: 100px; */
+    box-sizing: border-box;
+
+}
+
+
+.result p {
+    margin: 0;
+    padding: 7px 10px;
+    border: 1px solid coral;
+    border-top: none;
+    cursor: pointer;
+}
+
+.result p:hover {
+    background: #f2f2f2;
+}
