@@ -73,10 +73,10 @@
                                 echo '<a href="read.php?id=' . $row['id'] . '" class="mr-3" title="View Record" data-toogle="tooltip"><span class="fa fa-eye"></span></a>';
 
                                 # Update
-                                echo '<a href="read.php?id=' . $row['id'] . '" class="mr-3" title="Update Record" data-toogle="tooltip"><span class="fa fa-pencil"></span></a>';
+                                echo '<a href="update.php?id=' . $row['id'] . '" class="mr-3" title="Update Record" data-toogle="tooltip"><span class="fa fa-pencil"></span></a>';
 
                                 # Delete
-                                echo '<a href="read.php?id=' . $row['id'] . '" class="mr-3" title="Delete Record" data-toogle="tooltip"><span class="fa fa-trash"></span></a>';
+                                echo '<a href="delete.php?id=' . $row['id'] . '" class="mr-3" title="Delete Record" data-toogle="tooltip"><span class="fa fa-trash"></span></a>';
 
                                 echo "</td>";
                                 echo "</tr>";
